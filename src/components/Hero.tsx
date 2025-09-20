@@ -3,10 +3,7 @@ import { ArrowRight, Code, Brain, Cpu } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative py-20 px-6 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-hero opacity-5" />
-      
+    <section className="relative py-20 px-6 overflow-hidden bg-background">
       <div className="max-w-4xl mx-auto text-center relative">
         <div className="flex justify-center items-center gap-4 mb-8">
           <div className="p-3 bg-accent-soft rounded-full">
@@ -20,7 +17,7 @@ const Hero = () => {
           </div>
         </div>
         
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent leading-tight">
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 text-primary leading-tight">
           Software Engineering
           <br />
           <span className="text-accent">& AI Insights</span>
@@ -34,7 +31,7 @@ const Hero = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button 
             size="lg" 
-            className="bg-gradient-hero hover:shadow-glow transition-all duration-300 group"
+            className="bg-primary hover:bg-primary/90 transition-all duration-300 group"
           >
             Read Latest Posts
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-smooth" />

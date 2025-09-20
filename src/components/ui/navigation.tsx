@@ -15,7 +15,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           <Link 
             to="/" 
-            className="text-xl font-bold bg-gradient-hero bg-clip-text text-transparent hover:scale-105 transition-smooth"
+            className="text-xl font-bold text-primary hover:scale-105 transition-smooth"
           >
             DevBlog
           </Link>
@@ -34,7 +34,7 @@ const Navigation = () => {
               >
                 {item.label}
                 {location.pathname === item.href && (
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-accent rounded-full" />
+                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full" />
                 )}
               </Link>
             ))}

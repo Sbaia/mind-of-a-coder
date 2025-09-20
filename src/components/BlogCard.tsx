@@ -20,7 +20,7 @@ interface BlogCardProps {
 const BlogCard = ({ post }: BlogCardProps) => {
   return (
     <Link to={`/blog/${post.slug}`} className="group block">
-      <Card className="h-full bg-gradient-card border-border/50 hover:shadow-medium transition-all duration-300 hover:-translate-y-1">
+      <Card className="h-full bg-card border-border/50 hover:shadow-medium transition-all duration-300 hover:-translate-y-1">
         <CardHeader className="pb-4">
           <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
             <div className="flex items-center gap-1">

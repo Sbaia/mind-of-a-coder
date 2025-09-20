@@ -18,39 +18,32 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
     
-    /* Brand Colors - Deep tech blue with warm orange accent */
-    --primary: 215 85% 25%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 215 95% 45%;
+    /* Brand Colors - Material Design inspired */
+    --primary: 211 100% 50%;
+    --primary-foreground: 0 0% 100%;
     
-    /* Accent - Warm orange for highlights */
-    --accent: 25 95% 55%;
-    --accent-foreground: 0 0% 98%;
-    --accent-soft: 25 100% 97%;
+    /* Accent - Material teal */
+    --accent: 174 100% 29%;
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 174 100% 95%;
     
-    /* Secondary - Subtle grays */
-    --secondary: 210 15% 95%;
-    --secondary-foreground: 215 25% 25%;
+    /* Secondary - Material gray */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 13%;
     
     /* Muted - For less important content */
-    --muted: 210 15% 92%;
-    --muted-foreground: 215 15% 55%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
     
     /* Code & Technical */
-    --code-bg: 215 30% 8%;
-    --code-foreground: 215 20% 85%;
-    --code-accent: 195 95% 68%;
+    --code-bg: 0 0% 4%;
+    --code-foreground: 0 0% 85%;
+    --code-accent: 174 100% 29%;
     
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--secondary)));
-    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(25 90% 60%));
-    
-    /* Shadows */
-    --shadow-soft: 0 4px 24px -8px hsl(var(--primary) / 0.1);
-    --shadow-medium: 0 8px 32px -8px hsl(var(--primary) / 0.15);
-    --shadow-large: 0 16px 48px -12px hsl(var(--primary) / 0.2);
-    --shadow-glow: 0 0 32px hsl(var(--accent) / 0.3);
+    /* Shadows - Material elevation */
+    --shadow-soft: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    --shadow-medium: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    --shadow-large: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     
     /* Borders */
     --border: 215 20% 88%;
@@ -95,13 +88,12 @@
     --popover: 215 25% 12%;
     --popover-foreground: 215 20% 92%;
     
-    --primary: 215 95% 68%;
-    --primary-foreground: 215 30% 8%;
-    --primary-glow: 215 100% 78%;
+    --primary: 211 100% 65%;
+    --primary-foreground: 0 0% 100%;
     
-    --accent: 25 95% 65%;
-    --accent-foreground: 215 30% 8%;
-    --accent-soft: 25 50% 12%;
+    --accent: 174 100% 40%;
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 174 100% 10%;
     
     --secondary: 215 20% 16%;
     --secondary-foreground: 215 20% 85%;
