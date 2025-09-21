@@ -33,7 +33,7 @@ const About = () => {
           </h1>
           
           <p className="text-xl text-muted-foreground leading-relaxed">
-            Engineering Manager | Cloud Architect | Full Stack Developer
+            Principal Engineer at Lansweeper | Cloud Architect | Engineering Leader
           </p>
         </div>
         
@@ -42,50 +42,58 @@ const About = () => {
             <h2 className="text-2xl font-semibold mb-6">My Journey</h2>
             <div className="prose prose-lg max-w-none">
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Engineering Manager con oltre 15 anni di esperienza nello sviluppo software e nella 
-                leadership tecnica. Attualmente guido le divisioni CRM, MailUp e TsCommerce in TeamSystem, 
-                gestendo team distribuiti in Italia, Albania e Spagna, supervisionando roadmap tecniche e di prodotto.
+                I'm a Principal Engineer at Lansweeper (starting July 2025), bringing over 15 years of 
+                hands-on experience in software development and technical leadership. Previously, I led 
+                the engineering efforts for CRM, MailUp, and TsCommerce divisions at TeamSystem, where 
+                I managed distributed teams across Italy, Albania, and Spain while architecting the 
+                technical vision for three strategic product areas.
               </p>
               
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Esperto in architetture cloud-native, sviluppo full-stack, infrastrutture Azure, 
-                pratiche DevOps e modernizzazione CRM enterprise. Focus su coaching del team, 
-                gestione del carico di lavoro e sviluppo delle persone con mindset Agile e 
-                attenzione alla qualità del codice, sicurezza e sostenibilità.
+                My passion lies in building cloud-native architectures that scale, mentoring engineers 
+                to reach their full potential, and bridging the gap between complex technical challenges 
+                and business outcomes. I specialize in Azure infrastructure, DevOps excellence, and 
+                enterprise CRM modernization, always with an eye on code quality, security, and 
+                sustainable engineering practices.
               </p>
 
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Promuovo attivamente l'adozione di strumenti AI nel workflow di sviluppo 
-                (come GitHub Copilot, Cursor e large language models) per aumentare la produttività, 
-                supportare testing e documentazione, e migliorare le capacità del team.
+                I'm particularly excited about the intersection of AI and software development. I actively 
+                champion the adoption of AI-powered tools like GitHub Copilot, Cursor, and large language 
+                models to supercharge developer productivity, enhance testing workflows, and elevate the 
+                capabilities of entire engineering teams. The future of development is collaborative—between 
+                humans and AI.
               </p>
             </div>
           </section>
           
           <section>
-            <h2 className="text-2xl font-semibold mb-6">Cosa scrivo</h2>
+            <h2 className="text-2xl font-semibold mb-6">What I Write About</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="p-6 bg-card rounded-lg border border-border shadow-soft">
                 <Code className="w-8 h-8 text-accent mb-4" />
-                <h3 className="font-semibold mb-2">Software Engineering</h3>
+                <h3 className="font-semibold mb-2">Engineering Excellence</h3>
                 <p className="text-sm text-muted-foreground">
-                  Best practices, pattern architetturali e lezioni dall'esperienza sui sistemi in produzione.
+                  Deep dives into architectural patterns, production lessons learned, and the art of 
+                  building systems that stand the test of time and scale.
                 </p>
               </div>
               
               <div className="p-6 bg-card rounded-lg border border-border shadow-soft">
                 <Brain className="w-8 h-8 text-accent mb-4" />
-                <h3 className="font-semibold mb-2">AI & Development</h3>
+                <h3 className="font-semibold mb-2">AI-Powered Development</h3>
                 <p className="text-sm text-muted-foreground">
-                  Come l'AI sta trasformando lo sviluppo software e cosa significa per i developer.
+                  Exploring how AI tools are revolutionizing our craft, from coding assistants to 
+                  automated testing and the future of human-AI collaboration.
                 </p>
               </div>
               
               <div className="p-6 bg-card rounded-lg border border-border shadow-soft">
                 <Rocket className="w-8 h-8 text-accent mb-4" />
-                <h3 className="font-semibold mb-2">Leadership & Management</h3>
+                <h3 className="font-semibold mb-2">Technical Leadership</h3>
                 <p className="text-sm text-muted-foreground">
-                  Insights su crescita professionale, gestione team e navigazione nell'industria tech.
+                  Insights on scaling engineering teams, fostering growth mindsets, and navigating 
+                  the delicate balance between technical debt and feature delivery.
                 </p>
               </div>
             </div>
@@ -107,10 +115,12 @@ const About = () => {
           </section>
           
           <section>
-            <h2 className="text-2xl font-semibold mb-6">Contattami</h2>
+            <h2 className="text-2xl font-semibold mb-6">Let's Connect</h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Sono sempre interessato a connettermi con altri sviluppatori, discutere idee 
-              o collaborare su progetti interessanti. Non esitare a contattarmi!
+              I'm always eager to connect with fellow engineers, brainstorm innovative solutions, 
+              or collaborate on projects that push the boundaries of what's possible. Whether 
+              you're looking to discuss the latest in cloud architecture, AI tooling, or just 
+              want to share war stories from the trenches—reach out!
             </p>
             
             <div className="flex flex-wrap gap-4">
