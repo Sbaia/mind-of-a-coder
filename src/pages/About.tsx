@@ -16,15 +16,27 @@ const About = () => {
       
       <div className="max-w-3xl mx-auto px-6 py-20">
         <div className="text-center mb-16">
-          <div className="flex justify-center items-center gap-4 mb-8">
-            <div className="p-4 bg-accent-soft rounded-full">
-              <Code className="w-8 h-8 text-accent" />
+          <div className="flex justify-center items-center gap-8 mb-8">
+            <div className="flex-shrink-0">
+              <img 
+                src="https://media.licdn.com/dms/image/v2/C4D03AQGQcP5K9_5JOQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1516877943693?e=1741824000&v=beta&t=L8h8rOJrKJ2gYz8w_8kZQGLtGLyNZQWLtJ8b8MQoQoQ"
+                alt="Roberto Serafin profile photo"
+                className="w-32 h-32 rounded-full object-cover border-4 border-accent shadow-large"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+                }}
+              />
             </div>
-            <div className="p-4 bg-accent-soft rounded-full">
-              <Brain className="w-8 h-8 text-accent" />
-            </div>
-            <div className="p-4 bg-accent-soft rounded-full">
-              <Rocket className="w-8 h-8 text-accent" />
+            <div className="flex gap-4">
+              <div className="p-4 bg-accent-soft rounded-full">
+                <Code className="w-8 h-8 text-accent" />
+              </div>
+              <div className="p-4 bg-accent-soft rounded-full">
+                <Brain className="w-8 h-8 text-accent" />
+              </div>
+              <div className="p-4 bg-accent-soft rounded-full">
+                <Rocket className="w-8 h-8 text-accent" />
+              </div>
             </div>
           </div>
           

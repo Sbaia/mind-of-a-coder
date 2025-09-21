@@ -18,14 +18,14 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
     
-    /* Brand Colors - Material Design inspired */
-    --primary: 211 100% 50%;
+    /* Brand Colors - Orange theme */
+    --primary: 24 100% 50%;
     --primary-foreground: 0 0% 100%;
     
-    /* Accent - Material teal */
-    --accent: 174 100% 29%;
+    /* Accent - Warm orange */
+    --accent: 24 100% 50%;
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 174 100% 95%;
+    --accent-soft: 24 100% 95%;
     
     /* Secondary - Material gray */
     --secondary: 0 0% 96%;
@@ -88,12 +88,12 @@
     --popover: 215 25% 12%;
     --popover-foreground: 215 20% 92%;
     
-    --primary: 211 100% 65%;
+    --primary: 24 100% 60%;
     --primary-foreground: 0 0% 100%;
     
-    --accent: 174 100% 40%;
+    --accent: 24 100% 60%;
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 174 100% 10%;
+    --accent-soft: 24 50% 10%;
     
     --secondary: 215 20% 16%;
     --secondary-foreground: 215 20% 85%;
