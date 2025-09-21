@@ -4,10 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, Code, Brain, Rocket } from "lucide-react";
 
 const About = () => {
-  const skills = [
-    "Leadership & Management", "Vue", "React", "TypeScript", "ASP.NET Core", 
-    "Node.js", "Azure", "Docker", "Kubernetes", "Terraform", 
-    "SQL Server", "MongoDB", "PostgreSQL", "DevOps", "GitLab CI/CD"
+  const frontendStack = [
+    "Vue", "React", "TypeScript", "Capacitor/Ionic"
+  ];
+
+  const backendStack = [
+    "ASP.NET Core", "Node.js", "MongoDB", "SQL Server", "PostgreSQL"
+  ];
+
+  const cloudDevOpsStack = [
+    "Azure", "Docker", "Kubernetes", "Terraform", "GitLab CI/CD", "ArgoCD"
   ];
 
   return (
@@ -54,75 +60,108 @@ const About = () => {
             <h2 className="text-2xl font-semibold mb-6">My Journey</h2>
             <div className="prose prose-lg max-w-none">
               <p className="text-muted-foreground leading-relaxed mb-6">
-                I'm a Principal Engineer at Lansweeper (starting July 2025), bringing over 15 years of 
-                hands-on experience in software development and technical leadership. Previously, I led 
-                the engineering efforts for CRM, MailUp, and TsCommerce divisions at TeamSystem, where 
-                I managed distributed teams across Italy, Albania, and Spain while architecting the 
-                technical vision for three strategic product areas.
+                I'm a Principal Engineer at Lansweeper who absolutely loves crafting elegant solutions 
+                to complex problems. What gets me excited? Building systems that not only work flawlessly 
+                but are also a joy to work with. I'm fascinated by the intersection of cutting-edge 
+                technology and practical engineering—where theory meets the real world.
               </p>
               
               <p className="text-muted-foreground leading-relaxed mb-6">
-                My passion lies in building cloud-native architectures that scale, mentoring engineers 
-                to reach their full potential, and bridging the gap between complex technical challenges 
-                and business outcomes. I specialize in Azure infrastructure, DevOps excellence, and 
-                enterprise CRM modernization, always with an eye on code quality, security, and 
-                sustainable engineering practices.
+                My sweet spot lies in cloud-native architectures, particularly on Azure, where I enjoy 
+                orchestrating Kubernetes clusters, designing CI/CD pipelines with GitLab, and watching 
+                infrastructure come to life through Terraform. There's something deeply satisfying about 
+                seeing code transform into scalable, resilient systems that handle real-world workloads.
               </p>
 
               <p className="text-muted-foreground leading-relaxed mb-6">
-                I'm particularly excited about the intersection of AI and software development. I actively 
-                champion the adoption of AI-powered tools like GitHub Copilot, Cursor, and large language 
-                models to supercharge developer productivity, enhance testing workflows, and elevate the 
-                capabilities of entire engineering teams. The future of development is collaborative—between 
-                humans and AI.
+                When I'm not diving deep into distributed systems, you'll find me exploring the latest 
+                in AI-powered development tools. I'm particularly passionate about how GitHub Copilot, 
+                Cursor, and other AI assistants are revolutionizing our craft—not replacing developers, 
+                but amplifying our creativity and productivity in ways we never imagined.
               </p>
             </div>
           </section>
           
           <section>
-            <h2 className="text-2xl font-semibold mb-6">What I Write About</h2>
+            <h2 className="text-2xl font-semibold mb-6">What Gets Me Excited</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="p-6 bg-card rounded-lg border border-border shadow-soft">
                 <Code className="w-8 h-8 text-accent mb-4" />
-                <h3 className="font-semibold mb-2">Engineering Excellence</h3>
+                <h3 className="font-semibold mb-2">Clean Architecture</h3>
                 <p className="text-sm text-muted-foreground">
-                  Deep dives into architectural patterns, production lessons learned, and the art of 
-                  building systems that stand the test of time and scale.
+                  I get a thrill from designing systems that are not just functional, but elegant and 
+                  maintainable. Good architecture is like poetry—every piece has its place.
                 </p>
               </div>
               
               <div className="p-6 bg-card rounded-lg border border-border shadow-soft">
                 <Brain className="w-8 h-8 text-accent mb-4" />
-                <h3 className="font-semibold mb-2">AI-Powered Development</h3>
+                <h3 className="font-semibold mb-2">AI-Augmented Coding</h3>
                 <p className="text-sm text-muted-foreground">
-                  Exploring how AI tools are revolutionizing our craft, from coding assistants to 
-                  automated testing and the future of human-AI collaboration.
+                  Exploring how AI tools can make us better developers, not replace us. The collaboration 
+                  between human creativity and AI capabilities fascinates me endlessly.
                 </p>
               </div>
               
               <div className="p-6 bg-card rounded-lg border border-border shadow-soft">
                 <Rocket className="w-8 h-8 text-accent mb-4" />
-                <h3 className="font-semibold mb-2">Technical Leadership</h3>
+                <h3 className="font-semibold mb-2">Cloud Innovation</h3>
                 <p className="text-sm text-muted-foreground">
-                  Insights on scaling engineering teams, fostering growth mindsets, and navigating 
-                  the delicate balance between technical debt and feature delivery.
+                  Building scalable, resilient systems in the cloud. There's magic in watching 
+                  infrastructure-as-code transform into living, breathing applications.
                 </p>
               </div>
             </div>
           </section>
           
           <section>
-            <h2 className="text-2xl font-semibold mb-6">Skills & Technologies</h2>
-            <div className="flex flex-wrap gap-3">
-              {skills.map((skill) => (
-                <Badge 
-                  key={skill} 
-                  variant="secondary"
-                  className="bg-accent-soft text-accent hover:bg-accent hover:text-accent-foreground transition-smooth"
-                >
-                  {skill}
-                </Badge>
-              ))}
+            <h2 className="text-2xl font-semibold mb-6">My Tech Stack</h2>
+            
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold mb-3 text-accent">Frontend & Mobile</h3>
+                <div className="flex flex-wrap gap-3">
+                  {frontendStack.map((tech) => (
+                    <Badge 
+                      key={tech} 
+                      variant="secondary"
+                      className="bg-accent-soft text-accent hover:bg-accent hover:text-accent-foreground transition-smooth"
+                    >
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-3 text-accent">Backend & Databases</h3>
+                <div className="flex flex-wrap gap-3">
+                  {backendStack.map((tech) => (
+                    <Badge 
+                      key={tech} 
+                      variant="secondary"
+                      className="bg-accent-soft text-accent hover:bg-accent hover:text-accent-foreground transition-smooth"
+                    >
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-3 text-accent">Cloud & DevOps</h3>
+                <div className="flex flex-wrap gap-3">
+                  {cloudDevOpsStack.map((tech) => (
+                    <Badge 
+                      key={tech} 
+                      variant="secondary"
+                      className="bg-accent-soft text-accent hover:bg-accent hover:text-accent-foreground transition-smooth"
+                    >
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
           
