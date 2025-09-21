@@ -13,13 +13,13 @@ const Navigation = () => {
     <nav className="bg-card/80 backdrop-blur-md border-b border-border sticky top-0 z-50">
       <div className="max-w-4xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="text-xl font-bold text-primary hover:scale-105 transition-smooth"
           >
-            DevBlog
+            Mind of a Coder
           </Link>
-          
+
           <div className="flex items-center gap-8">
             {navItems.map((item) => (
               <Link
