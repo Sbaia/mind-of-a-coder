@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Code, Brain, Cpu } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -32,17 +33,23 @@ const Hero = () => {
           <Button 
             size="lg" 
             className="bg-primary hover:bg-primary/90 transition-all duration-300 group"
+            asChild
           >
-            Read Latest Posts
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-smooth" />
+            <Link to="/posts">
+              Read Latest Posts
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-smooth" />
+            </Link>
           </Button>
           
           <Button 
             variant="outline" 
             size="lg"
             className="border-border hover:bg-secondary transition-smooth"
+            asChild
           >
-            About Me
+            <Link to="/about">
+              About Me
+            </Link>
           </Button>
         </div>
       </div>
