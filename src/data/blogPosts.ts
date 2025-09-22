@@ -12,225 +12,294 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     id: "1",
-    title: "The Evolution of Software Architecture: From Monoliths to Microservices",
-    excerpt: "Exploring the journey from monolithic applications to microservices architecture, and what it means for modern software development teams.",
-    content: `
-# The Evolution of Software Architecture: From Monoliths to Microservices
+    title: ".NET 9 Telemetry: pushing logs and metrics to HELK with OpenTelemetry",
+    excerpt: "Modern observability: sending .NET 9 telemetry to HELK with OpenTelemetry for logs, traces, and metrics.",
+    content: `# .NET 9 Telemetry: pushing logs and metrics to HELK with OpenTelemetry
 
-Software architecture has undergone a remarkable transformation over the past few decades. What started with simple monolithic applications has evolved into complex distributed systems that power today's most successful companies.
+*14 Nov 2024 — Mind of a Coder*
+*Exploring the intersection of software development, engineering best practices, and artificial intelligence. Deep dives into code, architecture, and the future of tech.*
 
-## The Monolithic Era
+> Modern observability: sending .NET 9 telemetry to HELK with OpenTelemetry for logs, traces, and metrics.
 
-In the early days of software development, monolithic architecture was the standard approach. Everything was built as a single, unified application where all components were interconnected and deployed together.
+---
 
-### Benefits of Monoliths:
-- **Simplicity**: Easy to develop, test, and deploy
-- **Performance**: Direct function calls without network overhead
-- **Consistency**: Single codebase with unified standards
+## The problem
 
-### Challenges:
-- **Scalability**: Difficult to scale individual components
-- **Technology Lock-in**: Entire application tied to one technology stack
-- **Team Coordination**: Large teams working on the same codebase
+You've got a .NET 9 service and a HELK stack (Elasticsearch + Logstash + Kibana, often with Kafka) powering threat hunting and analytics. You want **one instrumentation** strategy—OpenTelemetry (OTel)—to ship **logs, traces, and metrics** into HELK without sprinkling per-signal agents everywhere. Keep it simple, vendor-agnostic, and production-grade. HELK is ELK under the hood, so if we can shape OTel data for Elasticsearch/Kibana properly, we're golden. ([GitHub][1])
 
-## The Microservices Revolution
+## The approach (TL;DR)
 
-As applications grew in complexity and teams expanded, the limitations of monolithic architecture became apparent. This led to the rise of microservices architecture.
+1. **Instrument .NET 9 with OTel** (logs, metrics, traces) and **export via OTLP** to an **OpenTelemetry Collector**.
+2. In the **Collector**, use the **Elasticsearch exporter** to send all three signals to HELK's Elasticsearch in **OTel-native mapping** (or ECS if you prefer classic Kibana dashboards). Recent Elastic docs confirm logs, metrics, and traces are supported. ([Elastic][2])
+3. (Optional) If you want the Elastic APM UI for deep traces, add **APM Server** and send OTLP there; it natively accepts OTLP/HTTP and OTLP/gRPC. ([Elastic][3])
 
-### Key Principles:
-- **Single Responsibility**: Each service owns a specific business capability
-- **Decentralized**: Independent deployment and scaling
-- **Technology Diversity**: Different services can use different technologies
+This keeps your app clean (one exporter), makes the Collector your "router/transformer," and lands data in HELK ready to query/visualize.
 
-## The Reality Check
+---
 
-While microservices offer many benefits, they're not a silver bullet. The distributed nature introduces new challenges:
+## Wiring up .NET 9 (one-time setup)
 
-- **Network Complexity**: Service-to-service communication
-- **Data Consistency**: Managing transactions across services
-- **Operational Overhead**: More moving parts to monitor and maintain
+**Packages** (csproj – versions omitted on purpose; use the latest stable):
 
-## Finding the Right Balance
-
-The best architecture is the one that fits your team size, business requirements, and technical constraints. Sometimes a well-structured monolith is better than a poorly designed microservice architecture.
-
-**Key Takeaway**: Start simple, evolve gradually, and always prioritize your team's ability to deliver value to users.
-    `,
-    date: "Dec 15, 2024",
-    readTime: "8 min read",
-    tags: ["Architecture", "Microservices", "Software Design"],
-    slug: "evolution-of-software-architecture"
-  },
-  {
-    id: "2",
-    title: "AI-Powered Code Review: The Future of Software Quality",
-    excerpt: "How artificial intelligence is revolutionizing code review processes and helping developers write better, more secure code.",
-    content: `
-# AI-Powered Code Review: The Future of Software Quality
-
-The integration of artificial intelligence into software development workflows is transforming how we approach code quality and review processes. AI-powered tools are becoming essential companions for modern developers.
-
-## The Traditional Code Review Process
-
-Code reviews have long been a cornerstone of software quality assurance. Senior developers would manually examine code changes, looking for:
-
-- Logic errors and bugs
-- Security vulnerabilities
-- Performance issues
-- Code style violations
-- Architecture concerns
-
-While effective, this process is time-consuming and can create bottlenecks in the development pipeline.
-
-## Enter AI-Powered Solutions
-
-Modern AI tools are now capable of:
-
-### Automated Bug Detection
-AI can identify common patterns that lead to bugs, often catching issues that human reviewers might miss during routine reviews.
-
-### Security Vulnerability Scanning
-Machine learning models trained on vast datasets of known vulnerabilities can spot potential security issues in real-time.
-
-### Performance Optimization Suggestions
-AI can analyze code patterns and suggest optimizations based on performance data from similar codebases.
-
-### Style and Convention Enforcement
-Automated enforcement of coding standards ensures consistency across large teams.
-
-## Popular AI Code Review Tools
-
-- **GitHub Copilot**: Real-time code suggestions and completions
-- **DeepCode**: AI-powered static analysis
-- **CodeGuru**: Amazon's ML-powered code reviewer
-- **SonarQube**: Enhanced with AI capabilities
-
-## The Human Element
-
-While AI is powerful, human insight remains crucial for:
-
-- Business logic validation
-- Architecture decisions
-- Code readability and maintainability
-- Team knowledge sharing
-
-## Best Practices for AI-Enhanced Reviews
-
-1. **Use AI as a First Pass**: Let AI catch obvious issues before human review
-2. **Maintain Human Oversight**: AI suggestions should be validated by developers
-3. **Continuous Learning**: Train AI models on your codebase for better accuracy
-4. **Balance Speed and Quality**: Don't sacrifice thorough review for speed
-
-The future of code review lies in the collaboration between human expertise and AI efficiency.
-    `,
-    date: "Dec 10, 2024",
-    readTime: "6 min read",
-    tags: ["AI", "Code Review", "DevOps", "Quality"],
-    slug: "ai-powered-code-review"
-  },
-  {
-    id: "3",
-    title: "Clean Code Principles Every Developer Should Know",
-    excerpt: "Essential principles for writing maintainable, readable code that stands the test of time and scale.",
-    content: `
-# Clean Code Principles Every Developer Should Know
-
-Writing clean, maintainable code is one of the most important skills a developer can master. Clean code not only makes your life easier but also improves team productivity and reduces technical debt.
-
-## What is Clean Code?
-
-Clean code is code that is easy to read, understand, and modify. It expresses the programmer's intent clearly and can be enhanced by other developers without fear of breaking existing functionality.
-
-## Core Principles
-
-### 1. Meaningful Names
-
-Choose names that reveal intent and avoid misleading information.
-
-\`\`\`typescript
-// Bad
-const d = 30; // elapsed time in days
-
-// Good
-const elapsedTimeInDays = 30;
+\`\`\`xml
+<ItemGroup>
+  <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+  <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+  <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+  <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+  <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
+  <PackageReference Include="OpenTelemetry.Logs" />
+</ItemGroup>
 \`\`\`
 
-### 2. Functions Should Do One Thing
+**Program.cs** (minimal API):
 
-Each function should have a single responsibility and do it well.
+\`\`\`csharp
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+using OpenTelemetry.Metrics;
 
-\`\`\`typescript
-// Bad
-function processUserData(user: User) {
-  // validate user
-  // save to database
-  // send email
-  // log activity
+var builder = WebApplication.CreateBuilder(args);
+
+// ship logs via OTLP to the Collector
+builder.Logging.ClearProviders();
+builder.Logging.AddOpenTelemetry(o =>
+{
+    o.IncludeFormattedMessage = true;
+    o.IncludeScopes = true;
+    o.ParseStateValues = true;
+    o.AddOtlpExporter(); // default http://localhost:4318
+});
+
+// single OTel setup for traces & metrics
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(r => r
+        .AddService(serviceName: "crm.api", serviceVersion: "1.0.0")
+        .AddAttributes(new KeyValuePair<string, object>[] {
+            new("deployment.environment", Environment.GetEnvironmentVariable("ENV") ?? "dev")
+        }))
+    .WithTracing(t => t
+        .AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation()
+        .AddSource("crm.api")           // your ActivitySource if you do manual spans
+        .AddOtlpExporter())
+    .WithMetrics(m => m
+        .AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation()
+        .AddRuntimeInstrumentation()
+        .AddProcessInstrumentation()
+        .AddOtlpExporter());
+
+var app = builder.Build();
+app.MapGet("/health", () => "ok");
+app.Run();
+\`\`\`
+
+> Why OTLP? It's the native OTel protocol, widely supported by collectors/backends and avoids lossy translations. ([OpenTelemetry][4])
+
+---
+
+## OpenTelemetry Collector → HELK (Elasticsearch)
+
+### Option A — **Direct to Elasticsearch** (simple, fast)
+
+Use the **Elasticsearch exporter** in the Collector and pick a mapping:
+
+* \`mapping.mode: otel\` → OTel-native schema (great for consistency across tools)
+* \`mapping.mode: ecs\` → Elastic Common Schema (handy if you've got existing ECS dashboards)
+
+Elastic's current docs state the exporter supports logs, metrics, and traces. ([Elastic][2])
+
+**collector.yaml**
+
+\`\`\`yaml
+receivers:
+  otlp:
+    protocols:
+      http:
+      grpc
+
+processors:
+  batch:
+  resource:
+    attributes:
+      - key: env
+        action: upsert
+        value: \${ENVIRONMENT}
+
+exporters:
+  elasticsearch:
+    # point to HELK's Elasticsearch
+    endpoints: ["https://helk-es:9200"]
+    user: elastic
+    password: \${ELASTIC_PASSWORD}
+    # or: api_key: \${ELASTIC_API_KEY}
+    mapping:
+      mode: otel    # or "ecs" if you want ECS fields
+
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors: [resource, batch]
+      exporters: [elasticsearch]
+    metrics:
+      receivers: [otlp]
+      processors: [resource, batch]
+      exporters: [elasticsearch]
+    traces:
+      receivers: [otlp]
+      processors: [resource, batch]
+      exporters: [elasticsearch]
+\`\`\`
+
+### Option B — **Use Elastic APM Server** (for the APM UI)
+
+If your HELK includes **APM Server** (or you add it), send traces/metrics over OTLP to APM; logs can still go straight to Elasticsearch. APM Server natively speaks OTLP over HTTP and gRPC. ([Elastic][3])
+
+\`\`\`yaml
+exporters:
+  otlphttp/apm:
+    endpoint: http://apm-server:8200
+    # headers: { Authorization: "Bearer <token>" } # if needed
+  elasticsearch:
+    endpoints: ["https://helk-es:9200"]
+    user: elastic
+    password: \${ELASTIC_PASSWORD}
+    mapping:
+      mode: otel
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp/apm]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp/apm]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [elasticsearch]
+\`\`\`
+
+### Option C — **Kafka + Logstash** (when HELK standardizes on Kafka)
+
+HELK often rides with Kafka/Logstash. You can fan out via Kafka and keep Logstash pipelines you already have. ([thehelk.com][5])
+
+**collector.yaml (logs via Kafka)**
+
+\`\`\`yaml
+exporters:
+  kafka:
+    brokers: ["kafka:9092"]
+    topic: otel-logs
+    encoding: otlp_json
+
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [kafka]
+\`\`\`
+
+**logstash.conf**
+
+\`\`\`conf
+input {
+  kafka {
+    bootstrap_servers => "kafka:9092"
+    topics => ["otel-logs"]
+    codec => json
+  }
 }
 
-// Good
-function validateUser(user: User): boolean { }
-function saveUser(user: User): void { }
-function sendWelcomeEmail(user: User): void { }
-function logUserActivity(user: User): void { }
-\`\`\`
-
-### 3. Keep Functions Small
-
-Small functions are easier to understand, test, and debug.
-
-### 4. Use Comments Wisely
-
-Good code is self-documenting. Use comments to explain "why," not "what."
-
-\`\`\`typescript
-// Bad
-// Increment i by 1
-i++;
-
-// Good
-// Retry failed requests with exponential backoff
-const retryDelay = baseDelay * Math.pow(2, attemptCount);
-\`\`\`
-
-### 5. Error Handling
-
-Handle errors gracefully and provide meaningful error messages.
-
-\`\`\`typescript
-try {
-  const result = await processPayment(amount);
-  return result;
-} catch (error) {
-  logger.error('Payment processing failed', { 
-    amount, 
-    error: error.message 
-  });
-  throw new PaymentProcessingError('Unable to process payment');
+# optional transforms here (mutate/grok)
+output {
+  elasticsearch {
+    hosts => ["http://helk-es:9200"]
+    index => "otel-logs-%{+YYYY.MM.dd}"
+  }
 }
 \`\`\`
 
-## Benefits of Clean Code
+---
 
-- **Reduced Debugging Time**: Clear code makes bugs easier to spot
-- **Faster Onboarding**: New team members can understand the codebase quickly
-- **Easier Maintenance**: Modifications and enhancements are less risky
-- **Better Testing**: Clean code is easier to unit test
+## Querying in Kibana
 
-## Refactoring Legacy Code
+* With **\`mapping.mode: otel\`**, your docs use OTel-native field names; use **Discover** and build Lens/Alerts directly.
+* With **\`mapping.mode: ecs\`**, your logs fit classic ECS visualizations and SIEM/hunting content more naturally.
+* If you installed **APM Server**, use the **APM app** for traces/service maps; Elasticsearch stores the data underneath. ([Elastic][2])
 
-When working with existing codebases:
+---
 
-1. **Boy Scout Rule**: Always leave code cleaner than you found it
-2. **Small Steps**: Refactor incrementally to minimize risk
-3. **Test Coverage**: Ensure good test coverage before refactoring
-4. **Team Agreement**: Establish coding standards with your team
+## Alternatives (and why I didn't pick them)
 
-Remember: Clean code is not about following rules blindly—it's about writing code that humans can easily understand and maintain.
-    `,
-    date: "Dec 5, 2024",
-    readTime: "10 min read",
-    tags: ["Clean Code", "Best Practices", "Software Engineering"],
-    slug: "clean-code-principles"
+* **Ship app logs via Filebeat/Elastic Agent only**: fine for logs, but then you still need a story for traces/metrics; OTel keeps all three signals consistent and correlatable. ([OpenTelemetry][6])
+* **Send straight from .NET to Elasticsearch**: possible via community libs, but you lose the Collector's routing, batching, retries, and signal-wise policies. The Collector is the control plane. ([OpenTelemetry][7])
+* **Grafana stack (Loki/Tempo/Mimir)**: great stack, but if HELK is your center of gravity and your hunters live in Kibana, Elasticsearch-first keeps the operational surface smaller.
+
+---
+
+## Gotchas & notes from the trenches
+
+* **Indices & privileges**: ensure the exporter's credential can create/write indices (mapping conflicts bite). Monitor exporter failure metrics and Collector logs during rollout. ([GitHub][8])
+* **Choose your mapping early**: flipping between \`ecs\` and \`otel\` later means reindexing or dual-write during migration. ([Elastic][2])
+* **APM or not?** If you want native APM views, add **APM Server**. If not, you can still visualize traces in Kibana via Discover/Visualize, but you'll miss curated APM UX. ([Elastic][3])
+
+---
+
+## Final checklist
+
+* [ ] .NET 9 app emits logs/metrics/traces via OTLP. ([Microsoft Learn][9])
+* [ ] Collector receives OTLP(\`4317\` gRPC, \`4318\` HTTP) and batches. ([OpenTelemetry][10])
+* [ ] Exporter: **Elasticsearch** (mapping \`otel\` or \`ecs\`) **or** **APM Server** for traces/metrics. ([Elastic][2])
+* [ ] Kibana dashboards wired; (optional) APM UI if using APM Server. ([Elastic][11])
+
+---
+
+## Appendix: minimal manual span (optional)
+
+\`\`\`csharp
+using System.Diagnostics;
+
+var source = new ActivitySource("crm.api");
+
+app.MapGet("/work", () =>
+{
+    using var activity = source.StartActivity("heavy-work");
+    // ... your code
+    return Results.Ok(new { ok = true });
+});
+\`\`\`
+
+---
+
+### References
+
+* HELK introduces an ELK-based hunting platform with analytics (Spark/GraphFrames/Jupyter). ([thehelk.com][5])
+* Elastic Stack **APM Server** supports **OTLP** (HTTP & gRPC). ([Elastic][3])
+* **Elasticsearch exporter** in the OTel Collector supports **logs, metrics, traces** and multiple mapping modes (including \`otel\` and \`ecs\`). ([Elastic][2])
+* .NET observability with OpenTelemetry (official docs). ([Microsoft Learn][9])
+
+
+[1]: https://github.com/cyb3rward0g/helk/wiki?utm_source=chatgpt.com "Home · Cyb3rWard0g/HELK Wiki"
+[2]: https://www.elastic.co/docs/reference/opentelemetry/edot-collector/components/elasticsearchexporter?utm_source=chatgpt.com "Elasticsearch exporter | Elastic Agent release notes"
+[3]: https://www.elastic.co/docs/solutions/observability/apm/opentelemetry-intake-api?utm_source=chatgpt.com "OpenTelemetry intake API | Elastic Docs"
+[4]: https://opentelemetry.io/docs/languages/js/exporters/?utm_source=chatgpt.com "Exporters"
+[5]: https://thehelk.com/intro.html?utm_source=chatgpt.com "Introduction — The HELK"
+[6]: https://opentelemetry.io/docs/specs/otel/logs/?utm_source=chatgpt.com "OpenTelemetry Logging"
+[7]: https://opentelemetry.io/docs/collector/?utm_source=chatgpt.com "Collector"
+[8]: https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/32302?utm_source=chatgpt.com "[exporter/elasticsearchexporter] Push failures not reported ..."
+[9]: https://learn.microsoft.com/en-us/dotnet/core/diagnostics/observability-with-otel?utm_source=chatgpt.com "NET Observability with OpenTelemetry"
+[10]: https://opentelemetry.io/docs/collector/configuration/?utm_source=chatgpt.com "Configuration"
+[11]: https://www.elastic.co/guide/en/observability/8.19/apm-open-telemetry.html?utm_source=chatgpt.com "Use OpenTelemetry with APM | Elastic Observability [8.19]"`,
+    date: "2024-11-14",
+    readTime: "12 min read",
+    tags: ["dotnet", "opentelemetry", "observability", "helk", "elasticsearch"],
+    slug: "dotnet-9-telemetry-helk-opentelemetry"
   }
 ];
