@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -120,36 +121,35 @@ const BlogPost = () => {
         
         <div className="prose prose-lg max-w-none">
           {(() => {
-            const lines = post.content.split('\n');
             const elements: React.ReactNode[] = [];
+            const lines = post.content.split('\n');
             let i = 0;
 
             while (i < lines.length) {
               const line = lines[i];
 
+              // Skip empty lines (paragraph separators handled by collecting non-empty lines)
               if (line.trim() === '') {
                 i++;
                 continue;
               }
 
-              // Handle code blocks
+              // Handle code blocks - collect until closing ```
               if (line.startsWith('```')) {
-                const codeLines = [];
-                i++;
-
+                const codeLines: string[] = [];
+                i++; // skip opening ```
                 while (i < lines.length && !lines[i].startsWith('```')) {
                   codeLines.push(lines[i]);
                   i++;
                 }
-
+                i++; // skip closing ```
                 elements.push(
-                  <div key={elements.length} className="bg-code-bg text-code-foreground p-6 rounded-lg my-4 overflow-x-auto">
-                    <pre className="text-sm">
+                  <div key={elements.length} className="bg-code-bg text-code-foreground p-3 rounded-lg my-4 overflow-x-auto">
+                    <pre className="text-sm m-0">
                       <code>{codeLines.join('\n')}</code>
                     </pre>
                   </div>
                 );
-                i++;
                 continue;
               }
 
@@ -184,18 +184,36 @@ const BlogPost = () => {
                 continue;
               }
 
-              // Handle blockquotes
-              if (line.startsWith('> ')) {
+              // Handle horizontal rules
+              if (line.trim() === '---') {
                 elements.push(
-                  <blockquote key={elements.length} className="border-l-4 border-primary pl-6 italic text-muted-foreground my-4">
-                    {processInlineFormatting(line.substring(2))}
-                  </blockquote>
+                  <hr key={elements.length} className="border-border my-5" />
                 );
                 i++;
                 continue;
               }
 
-              // Handle list items
+              // Handle blockquotes - collect consecutive > lines
+              if (line.startsWith('> ')) {
+                const quoteLines: string[] = [];
+                while (i < lines.length && lines[i].startsWith('> ')) {
+                  quoteLines.push(lines[i].substring(2));
+                  i++;
+                }
+                elements.push(
+                  <blockquote key={elements.length} className="border-l-4 border-primary pl-6 italic text-muted-foreground my-4">
+                    {quoteLines.map((qline, idx) => (
+                      <React.Fragment key={idx}>
+                        {processInlineFormatting(qline)}
+                        {idx < quoteLines.length - 1 && <br />}
+                      </React.Fragment>
+                    ))}
+                  </blockquote>
+                );
+                continue;
+              }
+
+              // Handle list items - collect consecutive - or * lines
               if (line.startsWith('- ') || line.startsWith('* ')) {
                 const listItems: string[] = [];
                 while (i < lines.length && (lines[i].startsWith('- ') || lines[i].startsWith('* '))) {
@@ -212,35 +230,46 @@ const BlogPost = () => {
                 continue;
               }
 
-              // Handle horizontal rules
-              if (line.trim() === '---') {
-                elements.push(
-                  <hr key={elements.length} className="border-border my-5" />
-                );
+              // Handle paragraphs - collect lines until empty line
+              const paragraphLines: string[] = [];
+              while (i < lines.length && lines[i].trim() !== '' &&
+                     !lines[i].startsWith('```') &&
+                     !lines[i].startsWith('# ') &&
+                     !lines[i].startsWith('## ') &&
+                     !lines[i].startsWith('### ') &&
+                     !lines[i].startsWith('> ') &&
+                     !lines[i].startsWith('- ') &&
+                     !lines[i].startsWith('* ') &&
+                     lines[i].trim() !== '---') {
+                paragraphLines.push(lines[i]);
                 i++;
-                continue;
               }
 
-              // Handle links (with inline formatting)
-              if (line.includes('[') && line.includes('](')) {
-                const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-                const processedLine = line.replace(linkRegex, (_, text, url) => {
-                  return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">${text}</a>`;
-                });
-                elements.push(
-                  <p key={elements.length} className="mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: processedLine }} />
-                );
-                i++;
-                continue;
+              if (paragraphLines.length > 0) {
+                // Check if paragraph contains links
+                const fullText = paragraphLines.join('\n');
+                if (fullText.includes('[') && fullText.includes('](')) {
+                  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+                  const processedText = fullText.replace(linkRegex, (_, text, url) => {
+                    return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">${text}</a>`;
+                  });
+                  const withBreaks = processedText.replace(/\n/g, '<br>');
+                  elements.push(
+                    <p key={elements.length} className="mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: withBreaks }} />
+                  );
+                } else {
+                  elements.push(
+                    <p key={elements.length} className="mb-4 leading-relaxed">
+                      {paragraphLines.map((pline, idx) => (
+                        <React.Fragment key={idx}>
+                          {processInlineFormatting(pline)}
+                          {idx < paragraphLines.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </p>
+                  );
+                }
               }
-
-              // Handle regular paragraphs with inline formatting
-              elements.push(
-                <p key={elements.length} className="mb-4 leading-relaxed">
-                  {processInlineFormatting(line)}
-                </p>
-              );
-              i++;
             }
 
             return elements;

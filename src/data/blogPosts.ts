@@ -11,6 +11,455 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "6",
+    title: "Stream First, Schema Later: Why Flink + Iceberg Beats Traditional ETL in 2025",
+    excerpt: "ETL assumes calm, predictable data. Modern systems deliver chaos. Here's why streaming-first architectures win.",
+    content: `
+*Exploring the intersection of software development, engineering best practices, and artificial intelligence.*
+
+There’s a quiet revolution happening in data engineering.
+Not the kind with glossy conference booths and stickers about “data mesh.”
+This revolution is happening in the trenches—inside pipelines running 24/7, under real traffic, carrying payloads large enough to make your JVM sweat.
+
+The old world ran on ETL: extract → transform → load.
+A simple story, comforting in its linearity.
+
+The new world laughs at linearity.
+Today, your data arrives uninvited, in a streaming firehose, with schemas that evolve whenever a developer upstream forgets to update the Confluence page.
+
+The modern Lakehouse isn’t powered by ETL.
+It’s powered by **continuous flows**, late-arriving fields, schema evolution, and engines that can mutate the shape of data mid-flight without collapsing.
+
+This is where **Flink + Iceberg** beats traditional ETL so hard that the debate is basically over.
+
+---
+
+## ETL Assumes the World Is Calm
+
+ETL pipelines were built for a predictable universe:
+
+* Data arrives in batches.
+* The schema changes on “release day.”
+* You know how many columns there will be.
+* You can reprocess a window if something goes wrong.
+
+But 2025 workloads don’t live in that world anymore.
+They live in:
+
+* continuous ingestion,
+* late completeness,
+* entity relationships that evolve weekly,
+* nested payloads the size of a novella,
+* microservices upstream deployed every 20 minutes.
+
+You don’t “wait for the batch window” anymore.
+The batch window is gone. It left a note saying it ran away with streaming.
+
+---
+
+## Streaming Flips the Model: Ingest Now, Understand Later
+
+A streaming-first architecture answers a hard question with a simple principle:
+
+**Ingest everything immediately, and decide its meaning over time.**
+
+Flink is built for this philosophy.
+Its operators act like programmable membrane layers:
+
+* deserialize,
+* normalize,
+* compute diffs,
+* backfill state,
+* partition dynamically,
+* evolve schemas without downtime,
+* fan out to multiple Iceberg tables.
+
+Instead of rewiring pipelines every time upstream adds a field, you treat schema changes as just another event.
+
+### A minimal Flink example of schema-on-evolve
+
+Here’s a simplified pattern you see in real-world ingestion flows:
+
+\`\`\`scala
+val record = deserializeProtobuf(bytes)
+
+val normalized = normalize(record)  // drops unknown fields but keeps metadata
+
+val resolved = schemaRegistry
+  .withLatestSchema(record.entityType)
+  .merge(normalized)               // missing fields become nullable; new fields allowed
+
+sink.write(resolved)
+\`\`\`
+
+You didn’t rebuild your ETL.
+You didn’t reprocess a week.
+You didn’t explain to product why the dashboard broke.
+
+The pipeline evolved because the schema evolved.
+
+---
+
+## Where Iceberg Complements Flink
+
+Streaming alone is not enough.
+You need storage with a backbone—something that can organize these flowing bytes into a coherent, queryable structure.
+
+Iceberg brings:
+
+* **schema evolution without table rewrites**,
+* **partition evolution**,
+* **snapshot isolation**,
+* **metadata-based skipping** (min/max, bloom, column stats),
+* **ACID for huge, append-heavy tables**,
+* **the ability to serve the same data to streaming and SQL engines**.
+
+That last point is important:
+**Flink writes; Trino/Spark read; the table stays consistent.**
+
+Traditional ETL needs staging areas, temp tables, retry logic, and semi-manual cleanup rituals that are basically dark magic.
+
+With Iceberg:
+
+\`\`\`
+Flink writes → Iceberg stores → Trino understands → Queries run fast
+\`\`\`
+
+No copies.
+No Gold/Silver/Bronze gymnastics unless you genuinely need them.
+
+---
+
+## The Killer Feature: You Can Rethink the Pipeline *After* It’s Running
+
+This is something ETL simply cannot do.
+
+When you operate in batch:
+
+* your pipeline structure is a contract,
+* changes require UX-level negotiations between teams,
+* backfills become migrations.
+
+With Flink + Iceberg, you can:
+
+* introduce new tables,
+* change fan-out rules,
+* add diff hashing,
+* rewrite partition strategies,
+* introduce changelog views,
+* evolve schemas,
+* compact aggressively,
+
+…all without stopping the stream.
+
+Imagine a world where data engineering behaves more like software engineering: iterative, testable, continuous.
+
+This isn’t a dream.
+It’s what people actually run in production today.
+
+---
+
+## A Brief, Honest Comparison
+
+### **Traditional ETL**
+
+* Requires strict schemas
+* Hard to evolve
+* Operational complexity grows with layers
+* Backfills become wars of attrition
+* Latency is measured in hours
+* Pipelines break loudly and dramatically
+
+### **Flink + Iceberg**
+
+* Schema evolution is native
+* Latency is measured in seconds
+* Backfills are localized, not global
+* Pipelines are dynamic and modular
+* Storage is append-optimized
+* Query engines understand the metadata, not just the bytes
+* You can ingest insane volumes without rewriting everything every month
+
+When your dataset becomes a creature of chaos, ETL collapses.
+When your dataset becomes a creature of chaos, Flink + Iceberg feels strangely comfortable.
+
+---
+
+## Code Example: The “Late Schema Field” Case
+
+Let’s say upstream unexpectedly adds a field:
+
+\`\`\`proto
+message Asset {
+  string hostname = 1;
+  string ip_address = 2;
+  string serial_number = 3;
+  string motherboard_version = 4;  // <— new field, never seen before
+}
+\`\`\`
+
+In ETL, this typically triggers alarms, Slack threads, Jira tickets, and a managerial meltdown.
+
+In a streaming Lakehouse:
+
+\`\`\`scala
+val merged = iceSchema.applyEvolution(incomingRecord)
+icebergSink.write(merged)
+\`\`\`
+
+The field is stored.
+The schema is updated.
+Trino queries it in minutes.
+
+The world moves on.
+
+---
+
+## The Future Is Stream-First
+
+Architectures in 2025 are not built around “moving data from A to B.”
+They are built around *understanding* data while it moves.
+
+Batch is still useful. But batch is no longer the center of gravity.
+
+The center has shifted to:
+
+* continuous ingestion
+* continuous modeling
+* continuous optimization
+* continuous querying
+* continuous evolution
+
+It’s never been more obvious:
+
+**Flink for flow. Iceberg for truth. Trino for insight.**
+
+Everything else is legacy.
+
+---
+
+## Closing Thought
+
+ETL got us far.
+It was the right abstraction for decades.
+
+But the world changed, and it didn’t come gently.
+It arrived as firehose-scale streams, unpredictable schemas, infinite cardinality, and analytical expectations that would make a 2015 Hadoop engineer faint.
+
+Flink + Iceberg isn’t “the new ETL.”
+It’s a fundamentally different mindset.
+
+**Stream first. Schema later. Fix when needed. Keep moving.**
+
+And that’s why, in 2025, the combination beats traditional ETL every single day of the week—and twice on schema-change Sunday.
+`,
+    date: "2025-12-05",
+    readTime: "5 min read",
+    tags: ["data-engineering", "flink", "iceberg", "streaming", "etl"],
+    slug: "stream-first-schema-later-flink-iceberg"
+  },
+  {
+    id: "5",
+    title: "Beyond Bronze–Silver–Gold: Rethinking Lakehouse Pipelines for Extreme Throughput",
+    excerpt: "Why the medallion pattern struggles at scale, and what a streaming-first Lakehouse architecture looks like instead.",
+    content: `# Beyond Bronze–Silver–Gold: Rethinking Lakehouse Pipelines for Extreme Throughput
+
+*15 Nov 2025 — Mind of a Coder*
+*Why layered pipelines become a tax at extreme scale*
+
+---
+
+For years, the Bronze–Silver–Gold model has been the unquestioned gospel of data engineering.
+You land raw data (Bronze), clean it (Silver), and reshape it for analytics (Gold). A tidy, layered world that looks great in slide decks.
+
+Then reality shows up with 80 million events per day, multi-megabyte Protobuf payloads, 1→150 fan-outs, and upstream teams who swear they "only changed one field."
+Your beautifully laminated architecture diagram doesn't survive the first hour of production.
+
+At high scale, the medallion pattern quietly becomes a tax: more layers, more IO, more state, more backfills.
+The Lakehouse dream starts sweating.
+
+This post explores why the traditional model breaks down under extreme throughput, and what a modern, streaming-first, Lakehouse-native redesign looks like.
+
+---
+
+## The Problem: Layered Architectures Don't Scale Linearly
+
+Let's imagine a typical ingestion flow:
+
+\`\`\`text
+Kafka → Flink (Bronze) → Flink (Silver) → Flink (Gold) → Iceberg → Trino
+\`\`\`
+
+On paper, this is fine.
+In production, each hop multiplies:
+
+- the number of bytes processed
+- the number of stateful operations
+- the number of potential bottlenecks
+- the chances that someone will ask "can we reprocess the last 30 days?"
+
+The model assumes a world where transformations are cheap and data is modest.
+Modern workloads laugh in its face.
+
+---
+
+## Where the Pain Comes From
+
+The core issue is simple:
+**the Bronze–Silver–Gold model was designed for batch thinking.**
+
+Batch assumes:
+
+- fixed windows of data
+- clear boundaries between transformations
+- predictable volumes
+
+Streaming does not care about your boundaries.
+Flink doesn't ask permission before pushing 300,000 msg/s into your operators.
+
+And Iceberg, for all its architectural elegance, doesn't magically remove IO. Write 100 million small files, and it will happily store them… forever.
+
+Backpressure, micro-files, runaway compactions, and expensive snapshot scans are not bugs.
+They are symptoms of using an old pattern in a new world.
+
+---
+
+## A Different Way: Streaming-First, Metadata-Heavy, Layer-Light
+
+The modern Lakehouse pipeline is collapsing layers, not adding them.
+
+Instead of three rigid surfaces, think in terms of **responsibilities**:
+
+- Ingest
+- Normalize
+- Serve
+
+The trick is not to multiply the data.
+The trick is to multiply *views*.
+
+### A cleaner high-throughput flow
+
+\`\`\`text
+Kafka
+  → Flink (Ingest + Normalize)
+  → Iceberg (Raw-ish but structured Storage)
+  → Trino/Engines (Serve)
+\`\`\`
+
+You run fewer stages, but each stage is smarter.
+
+### The key enabler: metadata instead of data copies
+
+When you store data in Iceberg, you're not forced to remodel it three times.
+You can expose multiple projections through:
+
+- Trino views
+- Iceberg metadata tables
+- Materialized views (if needed)
+- Min/max/partition/bloom metadata for skip-scans
+- Table-per-entity fan-out from a single streaming pipeline
+
+Most of the "Silver logic" becomes **row-level metadata**.
+Most of the "Gold logic" becomes **query-level modeling**.
+
+---
+
+## Example: Row-Level Change Detection Without a Silver Layer
+
+The classical Silver stage computes diffs. But you can embed this logic directly into the ingestion pipeline.
+
+\`\`\`scala
+val stream = env
+  .fromSource(kafkaSource)
+  .map(deserializeProtobuf)
+  .keyBy(_.primaryKey)
+  .process(new RichKeyedProcessFunction {
+     lazy val lastHash = getState(hashDescriptor)
+
+     override def processElement(rec, ctx, out):
+        val newHash = xxHash(rec)
+        if lastHash.value() != newHash:
+           out.collect(Change(rec, oldHash = lastHash.value(), newHash = newHash))
+           lastHash.update(newHash)
+  })
+  .sinkTo(dynamicIcebergSink)
+\`\`\`
+
+This *is* the Silver logic—just without a Silver table.
+
+Less IO. Less state. Less pain.
+
+---
+
+## Example: Fan-Out to 150+ Tables Without Gold as a Hard Layer
+
+Traditionally, Gold is where fan-out happens.
+But in streaming, there's no need to write a multiplexed Silver table only to split it again.
+
+\`\`\`scala
+tableRouter.route(changeEvent) match {
+  case "asset_network"      => ctx.output(networkTag, changeEvent)
+  case "software_installed" => ctx.output(softwareTag, changeEvent)
+  case _                    => ctx.output(unclassifiedTag, changeEvent)
+}
+\`\`\`
+
+Then a dynamic sink:
+
+\`\`\`scala
+DynamicIcebergSink.forRow(record)
+   .table(tableRouter.resolve(record))
+   .write(record)
+\`\`\`
+
+This eliminates an entire layer of physical storage.
+
+---
+
+## When Bronze–Silver–Gold Still Makes Sense
+
+Sometimes the classic pattern fits:
+
+- conservative organizations
+- slow-moving data
+- batch-heavy architectures
+- teams that prefer guardrails over flexibility
+
+There's nothing wrong with B–S–G when your daily volume isn't the size of a small galaxy.
+
+But if you're ingesting tens of millions of events per day, the medallion pattern becomes a bottleneck disguised as good practice.
+
+---
+
+## The Future: Layerless Lakehouses
+
+Modern engines—Flink, Iceberg, Trino—push us toward a simpler worldview:
+
+- streaming as the default
+- metadata as the first-class citizen
+- dynamic pipelines
+- schema-on-evolve
+- one source of truth
+
+The lakehouse is maturing.
+It's time our pipeline designs matured with it.
+
+---
+
+## Closing Thought
+
+The Bronze–Silver–Gold model had a good run. It taught a generation of engineers how to structure chaos.
+
+But extreme throughput doesn't care about tradition.
+It cares about IO, metadata, and how fast you can compute a hash for the fiftieth field inside a Protobuf envelope.
+
+The Lakehouse of 2025 is lighter, faster, and far more honest about where the real bottlenecks live.`,
+    date: "2025-11-15",
+    readTime: "8 min read",
+    tags: ["data-engineering", "lakehouse", "flink", "iceberg", "streaming"],
+    slug: "beyond-bronze-silver-gold-lakehouse-pipelines"
+  },
+  {
     id: "4",
     title: "AI Amplifies Process, Not Intelligence",
     excerpt: "Why productivity is the wrong lens to evaluate AI in engineering, and what to measure instead.",
