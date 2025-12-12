@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sbaia.github.io/mind-of-a-coder/</loc>
+    <loc>https://blog.serafinhome.com/</loc>
     <lastmod>2025-12-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://sbaia.github.io/mind-of-a-coder/posts</loc>
+    <loc>https://blog.serafinhome.com/posts</loc>
     <lastmod>2025-12-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sbaia.github.io/mind-of-a-coder/about</loc>
+    <loc>https://blog.serafinhome.com/about</loc>
     <lastmod>2025-12-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sbaia.github.io/mind-of-a-coder/blog/stream-first-schema-later-flink-iceberg</loc>
+    <loc>https://blog.serafinhome.com/blog/stream-first-schema-later-flink-iceberg</loc>
     <lastmod>2025-12-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sbaia.github.io/mind-of-a-coder/blog/beyond-bronze-silver-gold-lakehouse-pipelines</loc>
+    <loc>https://blog.serafinhome.com/blog/beyond-bronze-silver-gold-lakehouse-pipelines</loc>
     <lastmod>2025-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sbaia.github.io/mind-of-a-coder/blog/ai-amplifies-process-not-intelligence</loc>
+    <loc>https://blog.serafinhome.com/blog/ai-amplifies-process-not-intelligence</loc>
     <lastmod>2025-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sbaia.github.io/mind-of-a-coder/blog/ai-is-not-a-junior-developer</loc>
+    <loc>https://blog.serafinhome.com/blog/ai-is-not-a-junior-developer</loc>
     <lastmod>2025-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sbaia.github.io/mind-of-a-coder/blog/new-way-of-working-ai-code-quality-testing-documentation</loc>
+    <loc>https://blog.serafinhome.com/blog/new-way-of-working-ai-code-quality-testing-documentation</loc>
     <lastmod>2025-07-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sbaia.github.io/mind-of-a-coder/blog/dotnet-9-telemetry-helk-opentelemetry</loc>
+    <loc>https://blog.serafinhome.com/blog/dotnet-9-telemetry-helk-opentelemetry</loc>
     <lastmod>2024-11-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

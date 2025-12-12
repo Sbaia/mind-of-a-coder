@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://sbaia.github.io/mind-of-a-coder/sitemap.xml
+Sitemap: https://blog.serafinhome.com/sitemap.xml
