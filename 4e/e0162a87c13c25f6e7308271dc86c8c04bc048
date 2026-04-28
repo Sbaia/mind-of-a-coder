@@ -1,0 +1,23 @@
+src/data/blogPosts.ts
+  b1d1354d3b5b32ae 14-223
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "4ee0162a87c13c25f6e7308271dc86c8c04bc048",
+  "prompts": {
+    "b1d1354d3b5b32ae": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a7180b00-de1b-4c34-9b4e-5b99def00e5b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Roberto Serafin",
+      "messages": [],
+      "total_additions": 216,
+      "total_deletions": 4,
+      "accepted_lines": 211,
+      "overriden_lines": 1
+    }
+  }
+}
