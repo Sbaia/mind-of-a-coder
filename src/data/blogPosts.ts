@@ -11,6 +11,217 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "7",
+    title: "When Speed Eats Quality (and When It Shouldn't)",
+    excerpt: "Copilot had everything—distribution, trust, brand. And yet it feels like it's constantly catching up. What does that tell us about the speed vs. quality tradeoff in AI tooling?",
+    content: `
+*Exploring the intersection of software development, engineering best practices, and artificial intelligence.*
+
+Yesterday I was talking with a former colleague about what's happening around GitHub Copilot. Not just pricing, not just positioning—but the bigger picture. And the more I think about it, the less it looks like a product discussion, and the more it feels like a case study in how markets shift under your feet.
+
+I've had the chance to follow this space pretty closely—from Copilot to newer players like Cursor, Windsurf, Claude Code, Codex, RooCode, Qodo… and something doesn't add up if you look at it with a traditional engineering mindset.
+
+Copilot started first. It had distribution, trust, integration, brand. It wasn't just ahead—it defined the category.
+
+And yet, it feels like it's constantly catching up.
+
+---
+
+## The Game Changed While Copilot Was Playing It Right
+
+What's interesting is not that competitors exist. That's expected. What's interesting is *how* they're competing.
+
+Copilot tried to do things properly. Security boundaries. Compliance. Careful data handling. Controlled evolution. In another context, that would be the winning playbook.
+
+But in AI tooling, that same discipline can turn into drag.
+
+Because the competitors didn't play that game.
+
+They shipped faster. Much faster. They iterated in public. They released features that weren't perfect, sometimes not even stable—but they were *there*. And being there first matters more than being right, at least in the early phases.
+
+That's the uncomfortable part: quality didn't lose because it was worse. It lost because it was slower.
+
+---
+
+## The Real Question
+
+This brings us to the real question, the one that actually matters:
+
+> When does quality win over speed—and when does speed crush everything else?
+
+There's no clean answer, because it's not a binary choice. It's a moving boundary.
+
+But you can feel where the boundary is shifting.
+
+---
+
+## Stable Markets vs. Expanding Markets
+
+In stable markets, quality dominates. Think infrastructure, databases, financial systems. Nobody wants "fast but flaky" in a payment pipeline. Nobody celebrates a database that corrupts data but ships weekly features.
+
+In those environments, quality is not a differentiator. It's the baseline. Speed becomes incremental.
+
+But AI tooling is not a stable market.
+
+It's still expanding, still being defined. The UX is not settled. The abstraction layer is not agreed upon. Even the definition of "correctness" is fuzzy.
+
+So speed becomes the dominant force.
+
+Not because quality doesn't matter—but because the cost of being late is higher than the cost of being imperfect.
+
+---
+
+## The Weight Distribution
+
+You can model this tradeoff in a very crude way:
+
+\`\`\`go
+type ProductStrategy struct {
+    Speed   float64
+    Quality float64
+}
+\`\`\`
+
+In a traditional system, you'd try to maximize both. In reality, you're always redistributing weight.
+
+In AI tools today, the weights are skewed:
+
+\`\`\`go
+weights := map[string]float64{
+    "Speed":   0.7,
+    "Quality": 0.3,
+}
+\`\`\`
+
+Not because engineers suddenly stopped caring about quality—but because the market rewards speed more aggressively.
+
+---
+
+## Imperfect vs. Broken
+
+But here's where it gets interesting—and where most takes fall apart.
+
+This is not an argument for shipping garbage.
+
+There's a difference between:
+
+* shipping imperfect features
+* shipping broken features
+
+The first creates learning.
+The second destroys trust.
+
+The real skill is not choosing speed over quality. It's understanding how far you can bend quality before it snaps.
+
+---
+
+## The Sliding Boundary
+
+You can think of it as a sliding boundary:
+
+\`\`\`
+acceptable_quality = f(market_maturity, user_expectations, failure_cost)
+\`\`\`
+
+* If failure cost is low → you can move fast and break things
+* If users are still exploring → they tolerate rough edges
+* If the market is evolving → speed compounds
+
+But as soon as one of these changes, the equation flips.
+
+And this is where many companies die—not because they were too slow, but because they didn't rebalance in time.
+
+---
+
+## What AI Is Normalizing
+
+What AI is doing right now is pushing that boundary further than we're used to.
+
+It's normalizing:
+
+* incomplete features
+* probabilistic correctness
+* constantly changing behavior
+
+Things that would have been unacceptable in traditional software are now tolerated—sometimes even expected.
+
+That's a big deal.
+
+Because it forces a different kind of engineering discipline. Not less discipline—just a different one.
+
+---
+
+## A Cultural Shift, Not a Technical One
+
+The real challenge is cultural, not technical.
+
+Teams that are used to:
+
+* full test coverage
+* strict release gates
+* predictable behavior
+
+suddenly find themselves competing with teams that optimize for:
+
+* iteration loops
+* feedback density
+* time-to-experiment
+
+And those are not the same muscles.
+
+---
+
+## Where's the Truth?
+
+Right in the middle—but not in a static way.
+
+It's dynamic.
+
+At any given moment, your job is to understand:
+
+* how fast the market is moving
+* how much imperfection your users tolerate
+* how expensive failure is
+
+And then push just enough beyond your comfort zone.
+
+Too conservative, and you become irrelevant.
+Too aggressive, and you lose trust.
+
+---
+
+## The Copilot Lens
+
+Copilot is a perfect lens for this.
+
+It didn't fail. It's still massively relevant. But it shows what happens when you optimize for quality in a moment where the market is temporarily rewarding speed more.
+
+The real risk is not that it disappears.
+
+The real risk is that it keeps playing the wrong game for just a bit too long.
+
+---
+
+## The Takeaway
+
+And that's the part worth paying attention to.
+
+Because this isn't about Copilot.
+
+It's about every engineering organization right now.
+
+AI is shifting the balance. The bar for "acceptable quality" is moving. Faster than most teams are comfortable with.
+
+And the real skill—the one that will matter in the next few years—is not writing better code.
+
+It's knowing exactly how far you can push before things break… and having the discipline to pull back when they do.
+`,
+    date: "2026-04-28",
+    readTime: "7 min read",
+    tags: ["ai-tooling", "engineering-culture", "product-strategy", "quality", "speed"],
+    slug: "when-speed-eats-quality"
+  },
+  {
     id: "6",
     title: "Stream First, Schema Later: Why Flink + Iceberg Beats Traditional ETL in 2025",
     excerpt: "ETL assumes calm, predictable data. Modern systems deliver chaos. Here's why streaming-first architectures win.",
